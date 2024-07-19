@@ -7,12 +7,6 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use((err, req, res, next) => {
-  const status = err.status || 500;
-  const message = err.message || "Something went wrong!";
-  return res.status(status).json({ success: false, status, message });
-});
-
 app.use("/api/referrals", refferalsRoutes);
 
 app.get("/", (req, res) => {
@@ -21,6 +15,12 @@ app.get("/", (req, res) => {
     message: "Hello World!",
     data: null,
   });
+});
+
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || "Something went wrong!";
+  return res.status(status).json({ success: false, status, message });
 });
 
 app.listen(process.env.PORT || 3000, () => {

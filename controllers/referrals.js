@@ -43,7 +43,7 @@ async function sendMail(name, email, referredBy, course) {
         name +
         ", You have been referred by " +
         referredBy +
-        "to learn " +
+        " to learn " +
         course +
         " from Accredian" +
         " </p>",
@@ -61,7 +61,8 @@ export const addReferral = async (req, res, next) => {
   const { name, email, referredBy, course } = req.body;
 
   if (!name || !email || !referredBy || !course) {
-    return next(createError(400, "All fields are required"));
+    next(createError(400, "All fields are required"));
+    return;
   }
 
   try {
